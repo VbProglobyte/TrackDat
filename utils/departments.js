@@ -3,7 +3,16 @@ const inquirer = require("inquirer");
 const mysql = require('mysql2');
 // PORT environment
 const PORT = process.env.PORT || 3001;
-
+// VIEW ALL DEPARTMENTS
+// -- WHEN I choose to view all departments
+// -- THEN I am presented with a formatted table showing department names and department ids
+const viewAllDepartments = () => {
+    db.query("SELECT department.id, department.name AS department FROM department", (err, res) => {
+        if(err) throw err;
+        console.table(res);
+        mainMenu();
+    })};
+    
 //DEPARTMENT ADD
 const addDepartment = () => {
     inquirer.prompt({
@@ -22,3 +31,5 @@ const addDepartment = () => {
 }
 
 addDepartment()
+
+module.exports = departments;
