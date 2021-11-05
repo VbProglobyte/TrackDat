@@ -8,11 +8,12 @@ const PORT = process.env.PORT || 3001;
 // -- THEN I am presented with a formatted table showing department names and department ids
 const viewAllDepartments = () => {
     db.query("SELECT department.id, department.name AS department FROM department", (err, res) => {
-        if(err) throw err;
+        if (err) throw err;
         console.table(res);
-        mainMenu();
-    })};
-    
+        // mainMenu();
+    })
+};
+viewAllDepartments();
 //DEPARTMENT ADD
 const addDepartment = () => {
     inquirer.prompt({
@@ -25,7 +26,7 @@ const addDepartment = () => {
             connection.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
                 if (err) return err;
                 console.log("\n DEPARTMENT ADDED...\n ");
-                mainMenu();
+                // mainMenu();
             });
         });
 }

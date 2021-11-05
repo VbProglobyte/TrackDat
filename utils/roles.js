@@ -14,7 +14,7 @@ const viewAllRoles = () => {
     db.query("SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department ON role.department_id = department.id", (err, res) => {
         if(err) throw err;
         console.table(res);
-    mainMenu();
+    // mainMenu();
   })};
   
 
@@ -30,7 +30,7 @@ const viewAllRoles = () => {
             connection.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
                 if (err) return err;
                 console.log("\n DEPARTMENT ADDED...\n ");
-                mainMenu();
+                // mainMenu();
             });
         });
 }

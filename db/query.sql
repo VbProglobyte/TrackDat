@@ -1,5 +1,5 @@
 USE company_db;
--- ///////////////////////////////////////////////////////////// employee select
+-- ///////////////////////////////////////////////////////////// employee select (id, first name, last name, role, manager)
 SELECT * FROM employee;
 
 SELECT id, first_name, last_name FROM employee WHERE manager_id IS NULL;
@@ -13,7 +13,7 @@ WHERE id = ;
 -- //////////////////////////////// role select
 SELECT * role; 
 -- all
--- //////////////////////////////////////// department select
+-- //////////////////////////////////////// department select (title, salary, department id)
 INSERT INTO role (title, salary, department_id)
 VALUES (title, salary, department_id);
 
