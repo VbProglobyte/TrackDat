@@ -8,8 +8,12 @@ const cTable = require('console.table');
 const PORT = process.env.PORT || 3001;
 // connection file that i seperated to be gitignored
 const db = require('./utils/connection')
+// utils 
+// const departments = require('./utils/departments');
+// const employees = require('./utils/employees');
+// const roles = require('./utils/roles');
 
-db.connect(function(err) {
+db.connect(function (err) {
   if (err) throw err;
   console.log("--connected--")
   // welcome();
@@ -80,11 +84,44 @@ const mainMenu = () => {
           updateEmployeeRole();
           break;
       }
+      // mainMenu();
     })
+
 };
 
+// VIEW ALL DEPARTMENTS
+// -- WHEN I choose to view all departments
+// -- THEN I am presented with a formatted table showing department names and department ids
+const viewAllDepartments = () => {
+  db.query(`SELECT * FROM departments;`, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    mainMenu(); // takes you back to the main menu
+  });
+};
 
-// mainMenu();
+// VIEW ALL ROLES
+// -- WHEN I choose to view all roles
+// -- THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+const viewAllRoles = () => {
+  db.query(`SELECT * FROM roles;`, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    mainMenu();
+  })
+};
+
+// VIEW ALL EMPLOYEES
+// -- WHEN I choose to view all employees
+// -- THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+const viewAllEmployees = () => {
+  db.query(`SELECT * FROM employees;`, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    mainMenu();
+  })
+};
+
 
 // INITIALIZATION 
 const init = () => welcome()

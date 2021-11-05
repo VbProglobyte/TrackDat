@@ -1,6 +1,6 @@
 USE company_db;
 -- ///////////////////////////////////////////////////////////// employee select (id, first name, last name, role, manager)
-SELECT * FROM employee;
+SELECT * FROM employees;
 
 SELECT id, first_name, last_name FROM employee WHERE manager_id IS NULL;
 
@@ -11,7 +11,7 @@ UPDATE employee
 SET role_id =
 WHERE id = ;
 -- //////////////////////////////// role select
-SELECT * role; 
+SELECT * roles; 
 -- all
 -- //////////////////////////////////////// department select (title, salary, department id)
 INSERT INTO role (title, salary, department_id)
