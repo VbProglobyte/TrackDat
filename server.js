@@ -5,19 +5,26 @@ const mysql = require('mysql2');
 // console table PKG
 const cTable = require('console.table');
 // PORT environment
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
 // connection file that i seperated to be gitignored
-const db = require('./utils/connection')
+// const db = require('./utils/connection')
 // utils 
 // const departments = require('./utils/departments');
 // const employees = require('./utils/employees');
 // const roles = require('./utils/roles');
 
-db.connect(function (err) {
-  if (err) throw err;
-  console.log("--connected--")
-  // welcome();
-});
+// Connect to database PORT ////////////////////////////////////////////////////////
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    user: 'root',
+    password: 'VallyB784839_2601',
+    database: 'company_db'
+  },
+  console.log(`Connected to the company_db database.`)
+);
+
+
 
 // Welcome MESSAGE w/ instructions 
 const welcome = () => {
@@ -30,7 +37,6 @@ const welcome = () => {
   ])
     .then(mainMenu);
 };
-
 
 //inquirer prompt for questions - ADD
 // MAIN MENU =========================================
@@ -83,6 +89,13 @@ const mainMenu = () => {
         case "Update an employee role":
           updateEmployeeRole();
           break;
+
+        case "QUIT":
+          db.end();
+          break;
+
+        default:
+          break;
       }
       // mainMenu();
     })
@@ -95,7 +108,7 @@ const mainMenu = () => {
 const viewAllDepartments = () => {
   db.query(`SELECT * FROM departments;`, (err, res) => {
     if (err) throw err;
-    console.table(res);
+    console.table(res)
     mainMenu(); // takes you back to the main menu
   });
 };
@@ -106,7 +119,7 @@ const viewAllDepartments = () => {
 const viewAllRoles = () => {
   db.query(`SELECT * FROM roles;`, (err, res) => {
     if (err) throw err;
-    console.table(res);
+    console.table(res)
     mainMenu();
   })
 };
@@ -117,7 +130,7 @@ const viewAllRoles = () => {
 const viewAllEmployees = () => {
   db.query(`SELECT * FROM employees;`, (err, res) => {
     if (err) throw err;
-    console.table(res);
+    console.table(res)
     mainMenu();
   })
 };
