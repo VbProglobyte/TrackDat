@@ -24,8 +24,6 @@ const db = mysql.createConnection(
   console.log(`Connected to the company_db database.`)
 );
 
-
-
 // Welcome MESSAGE w/ instructions 
 const welcome = () => {
   return inquirer.prompt([
@@ -90,15 +88,15 @@ const mainMenu = () => {
           updateEmployeeRole();
           break;
 
-        case "QUIT":
+        case "EXIT":
           db.end();
           break;
 
-        default:
+        default: // suggested by chris 
           break;
       }
       // mainMenu();
-    })
+    });
 
 };
 
@@ -135,7 +133,79 @@ const viewAllEmployees = () => {
   })
 };
 
+//DEPARTMENT ADD //////////////////////////////////////////////////////////////////////
+const addDepartment = () => {
+  console.log("New Department");
+  inquirer.prompt({
 
+    type: "input",
+    name: "deptName",
+    message: "What department would you like to add?"
+
+  })
+    .then(answer => {
+      db.query(`INSERT INTO department (name) VALUES ('${answer.deptNam}');`, (err, res) => {
+  if (err) return err;
+  console.log(res);
+  console.log("\n NEW DEPARTMENT ADDED...\n ");
+
+});
+mainMenu(); // takes you back to the main menu
+      });
+}
+
+// got help from BCS with this - data.map 
+const addEmployee = () => {
+  db.query(`SELECT id, title FROM roles`, (err, data) => {
+    const roleList = data.map(roles => ({
+      value: roles.id,
+      name: roles.title,
+    }));
+    db.query(`SELECT id, first_name, last_name FROM employees`, (err, data) => {
+      const managerList = data.map(employees => ({
+        value: employees.id,
+        name: employees.first_name + " " + employees.last_name, // concat the fn with the ln
+      }))
+      managerList.push({
+        value: null,
+        name: "No manager", 
+      })
+      inquirer.prompt([
+        {
+          name: 'employeesFirst',
+          type: 'input',
+          message: 'What is the employees first name?'
+        },
+        {
+          name: 'employeesLast',
+          type: 'input',
+          message: 'What is the employees last name?'
+        },
+        {
+          name: 'employeesRole',
+          type: 'input',
+          message: 'What is the employees role?',
+          choices: roleList
+        },
+        {
+          name: 'managerId',
+          type: 'input',
+          message: 'What is the manager ID? Enter null if N/A',
+          choices: managerList
+        }
+
+      ])
+        .then((answer) => {
+          console.log(answer);
+          db.query(`INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES ('${answer.employeesFirst}', '${answer.employeesLast}', ${answer.employeesRole}, ${answer.managerId});`, (err, res) => {
+            if (err) throw err;
+            console.log('Employee has been added')
+            mainMenu();
+          });
+        });
+    })
+  })
+};
 // INITIALIZATION 
 const init = () => welcome()
 
