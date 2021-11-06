@@ -166,30 +166,27 @@ const addEmployee = () => {
         value: employees.id,
         name: employees.first_name + " " + employees.last_name, // concat the fn with the ln
       }))
-      managerList.push({
-        value: null,
-        name: "No manager", 
-      })
+      
       inquirer.prompt([
         {
-          name: 'employeesFirst',
           type: 'input',
+          name: 'employeesFirst',
           message: 'What is the employees first name?'
         },
         {
-          name: 'employeesLast',
           type: 'input',
+          name: 'employeesLast',
           message: 'What is the employees last name?'
         },
         {
+          type: 'list',
           name: 'employeesRole',
-          type: 'input',
           message: 'What is the employees role?',
           choices: roleList
         },
         {
+          type: 'list',
           name: 'managerId',
-          type: 'input',
           message: 'What is the manager ID? Enter null if N/A',
           choices: managerList
         }
