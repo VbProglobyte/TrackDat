@@ -4,7 +4,7 @@ VALUES ("Sales"),
        ("Finance"),
        ("Legal");
 
-INSERT INTO roles (title, salary, department_id)
+INSERT INTO roles (title, salary, departments_id)
         --    ///////////////////////////// sales
 VALUES ("Sales Lead", 115000.50, 1),
        ("Sales", 95000.50, 1),

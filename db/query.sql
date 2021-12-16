@@ -1,23 +1,26 @@
 USE company_db;
--- ///////////////////////////////////////////////////////////// employee select (id, first name, last name, role, manager)
+-- ///////////////////////////////////////////////////////////// employee select (id, first name, last name, roles, manager)
 SELECT * FROM employees;
 
-SELECT id, first_name, last_name FROM employee WHERE manager_id IS NULL;
+SELECT id, first_name, last_name FROM employees WHERE manager_id IS NULL;
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES (first_name, last_name, role_id, manager_id);
+INSERT INTO employees (first_name, last_name, roles_id, manager_id)
+VALUES (first_name, last_name, roles_id, manager_id);
 -- ///////////////////////////////// employee update
-UPDATE employee
-SET role_id =
+UPDATE employees
+SET roles_id =
 WHERE id = ;
--- //////////////////////////////// role select
+-- //////////////////////////////// roles select
 SELECT * roles; 
 -- all
+SELECT title, roles.id AS roles_id, departments.name AS departments, salary
+FROM roles
+JOIN departments ON roles.departments_id = departments.id;
 -- //////////////////////////////////////// department select (title, salary, department id)
-INSERT INTO role (title, salary, department_id)
-VALUES (title, salary, department_id);
+INSERT INTO roles (title, salary, departments_id)
+VALUES (title, salary, departments_id);
 
-SELECT * department;
+SELECT * departments;
 
-INSERT INTO department (name)
+INSERT INTO departments (name)
 VALUES (name);

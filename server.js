@@ -6,23 +6,23 @@ const mysql = require('mysql2');
 const cTable = require('console.table');
 // PORT environment
 // const PORT = process.env.PORT || 3001;
-// connection file that i seperated to be gitignored
-// const db = require('./utils/connection')
+// connection file that i seperated to be gitignored 
+const db = require('./utils/connection')
 // utils 
 // const departments = require('./utils/departments');
 // const employees = require('./utils/employees');
 // const roles = require('./utils/roles');
 
 // Connect to database PORT ////////////////////////////////////////////////////////
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    user: 'root',
-    password: 'VallyB784839_2601',
-    database: 'company_db'
-  },
-  console.log(`Connected to the company_db database.`)
-);
+// const db = mysql.createConnection(
+//   {
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'company_db'
+//   },
+//   console.log(`Connected to the company_db database.`)
+// );
 
 // Welcome MESSAGE w/ instructions 
 const welcome = () => {
@@ -55,6 +55,7 @@ const mainMenu = () => {
       "Add a role",
       "Add an employee",
       "Update an employee role",
+      "EXIT"
     ]
   })
     //.then switch statement - trying this out 
@@ -89,11 +90,11 @@ const mainMenu = () => {
           break;
 
         case "EXIT":
-          db.end();
+          db.end(); // exit db prompt 
           break;
 
-        default: // suggested by chris 
-          break;
+        // default: // suggested by chris 
+        //   break;
       }
       // mainMenu();
     });
@@ -111,7 +112,7 @@ const viewAllDepartments = () => {
   });
 };
 
-// VIEW ALL ROLES
+// VIEW ALL ROLES -- not working for some reason
 // -- WHEN I choose to view all roles
 // -- THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 const viewAllRoles = () => {
@@ -144,15 +145,32 @@ const addDepartment = () => {
 
   })
     .then(answer => {
-      db.query(`INSERT INTO department (name) VALUES ('${answer.deptNam}');`, (err, res) => {
-  if (err) return err;
-  console.log(res);
-  console.log("\n NEW DEPARTMENT ADDED...\n ");
+      db.query(`INSERT INTO department (name) VALUES ('${answer.deptName}');`, (err, res) => {
+        if (err) return err;
+        console.log(res);
+        console.log("\n NEW DEPARTMENT ADDED...\n ");
 
-});
-mainMenu(); // takes you back to the main menu
       });
-}
+      mainMenu(); // takes you back to the main menu
+    });
+};
+// ROLE ADD /////////////////////////////////////////////////////////
+const addRole = () => {
+  inquirer.prompt({
+
+    type: "input",
+    name: "newDepartment",
+    message: "What department would you like to add?"
+  })
+    .then((answer) => {
+      db.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
+        if (err) return err;
+        console.log("\n DEPARTMENT ADDED...\n ");
+      });
+      mainMenu();
+    });
+};
+
 
 // got help from BCS with this - data.map 
 const addEmployee = () => {
@@ -168,7 +186,7 @@ const addEmployee = () => {
       }))
       managerList.push({
         value: null,
-        name: "No manager", 
+        name: "No manager",
       })
       inquirer.prompt([
         {
@@ -200,7 +218,7 @@ const addEmployee = () => {
           db.query(`INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES ('${answer.employeesFirst}', '${answer.employeesLast}', ${answer.employeesRole}, ${answer.managerId});`, (err, res) => {
             if (err) throw err;
             console.log('Employee has been added')
-            mainMenu();
+            // mainMenu();
           });
         });
     })
