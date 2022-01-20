@@ -5,8 +5,8 @@ const mysql = require('mysql2');
 // console table PKG
 const cTable = require('console.table');
 // PORT environment
-// const PORT = process.env.PORT || 3001;
-// connection file that i seperated to be gitignored 
+const PORT = process.env.PORT || 3000;
+// connection file that i seperated to be gitignored />>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 const db = require('./utils/connection')
 // utils 
 // const departments = require('./utils/departments');
@@ -14,15 +14,7 @@ const db = require('./utils/connection')
 // const roles = require('./utils/roles');
 
 // Connect to database PORT ////////////////////////////////////////////////////////
-// const db = mysql.createConnection(
-//   {
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'company_db'
-//   },
-//   console.log(`Connected to the company_db database.`)
-// );
+
 
 // Welcome MESSAGE w/ instructions 
 const welcome = () => {
@@ -93,8 +85,8 @@ const mainMenu = () => {
           db.end(); // exit db prompt 
           break;
 
-        // default: // suggested by chris 
-        //   break;
+        default: // suggested by chris 
+          break;
       }
       // mainMenu();
     });
@@ -145,13 +137,13 @@ const addDepartment = () => {
 
   })
     .then(answer => {
-      db.query(`INSERT INTO department (name) VALUES ('${answer.deptName}');`, (err, res) => {
+      db.query(`INSERT INTO departments (name) VALUES ('${answer.deptName}');`, (err, res) => {
         if (err) return err;
         console.log(res);
         console.log("\n NEW DEPARTMENT ADDED...\n ");
-
+        mainMenu(); // takes you back to the main menu
       });
-      mainMenu(); // takes you back to the main menu
+      
     });
 };
 // ROLE ADD /////////////////////////////////////////////////////////
@@ -159,11 +151,11 @@ const addRole = () => {
   inquirer.prompt({
 
     type: "input",
-    name: "newDepartment",
-    message: "What department would you like to add?"
+    name: "roles",
+    message: "What roles would you like to add?"
   })
     .then((answer) => {
-      db.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
+      db.query(`INSERT INTO roles (name)VALUES ("${answer.rolesTitle}");`, (err, res) => {
         if (err) return err;
         console.log("\n DEPARTMENT ADDED...\n ");
       });
