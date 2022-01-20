@@ -29,7 +29,7 @@ and now you can view your tables and feilds
 ![image](https://user-images.githubusercontent.com/83515305/150430140-93f35f61-0e23-477e-83c0-2621052506b9.png)
 
 
-## Mock DEMO :
+## Mock DEMO : (right click on video to open in another window for a larger view)
 
 
 
