@@ -33,6 +33,10 @@ and now you can view your tables and feilds
 
 
 
+https://user-images.githubusercontent.com/83515305/150440078-b412c05c-5c08-4d37-bd35-f02c4120ee4e.mp4
+
+
+
 ## REFS
 
 https://www.mysqltutorial.org/mysql-left-join.aspx
