@@ -2,6 +2,9 @@
 An employee tracker 
 This is a database using MySQL - the command line is how we will be inserting the data (using Node, Inquirer, MySQL2). 
 
+![image](https://user-images.githubusercontent.com/83515305/150441003-70c309ec-ded4-4859-b511-7ba31d29d168.png)
+
+
 ## Installation 
 
 Through the command line : open up a terminal under server.js 
